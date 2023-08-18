@@ -15,10 +15,8 @@ export default function App() {
       { user ?
         <>
           <NavBar user={user} setUser={setUser} />
-          <Routes>          
-            <Route path="/notes/new" element={<NewNotePage />} />
-            <Route path="/notes" element={<NoteHistoryPage />} />
-          </Routes>
+          <br /><hr />
+          <NoteHistoryPage user={user} />          
         </>
         :
         <AuthPage setUser={setUser} />
