@@ -19,11 +19,11 @@ export default function NoteHistoryPage({user}){
   }
   return (
     <div>
-      <h1>My Notes Page</h1>
+      <h1>My Notes</h1>
       <div>
         <form onSubmit={handleSubmit} autoComplete='off' >
           <label >Note</label>
-          <input type="text" name='note' onChange={handleChange} value={newNote} />
+          <input type="text" name='note' onChange={handleChange} value={newNote} required />
           <button type='submit' >Add Note</button>
         </form>
       </div>
