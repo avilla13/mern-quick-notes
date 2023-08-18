@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { checkToken } from '../../utilities/users-service';
+import { createNote } from '../../utilities/notes-service';
 
 export default function NoteHistoryPage({user}){
   const [notes, setNotes] = useState([]);
@@ -11,11 +11,19 @@ export default function NoteHistoryPage({user}){
 
   async function handleSubmit(evt){
     evt.preventDefault();
-    console.log(evt);
+    // console.log(evt);
+    try{
+      const savedNewNote = await createNote({ text: newNote});
+      addNote(savedNewNote);
+      // reset input field after submission
+      setNewNote('');
+    } catch (e){
+      console.error(e)
+    }
   }
   function handleChange(evt) {
-    setNewNote({...newNote, [evt.target.name]: evt.target.value});
-    console.log(evt.target.value);
+    setNewNote(evt.target.value);
+    // console.log(evt.target.value);
   }
   return (
     <div>
@@ -32,8 +40,8 @@ export default function NoteHistoryPage({user}){
         {notes.length ? (
           <ul>
             {notes.map((note, idx) => (
-              <li>
-                {note.text} {new Date(note.createdAt).toLocaleString()}
+              <li key={idx}>
+                {note.text} | {new Date(note.createdAt).toLocaleString()}
               </li>
             ))}
           </ul>
